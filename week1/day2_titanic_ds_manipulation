@@ -1,0 +1,33 @@
+import pandas as pd
+import seaborn as sns
+
+df = sns.load_dataset('titanic')
+
+# TASK 1 — What was the survival rate by BOTH sex and pclass combined?
+print(df.groupby(['sex', 'pclass']).agg({
+    'survived': 'mean'
+}))
+
+# TASK 2 — For each embarkation town, find the mean fare AND mean age in one groupby
+print(df.groupby('embark_town').agg({
+    'fare': 'mean',
+    'age': 'mean'
+}))
+
+# TASK 3 — Create a new column 'age_group' using apply/lambda
+#           'child' if age < 18, 'adult' if 18-60, 'elderly' if over 60
+df['age_group'] = df['age'].apply(lambda x: 'child' if x < 18 else 'adult' if x < 60 else 'elderly')
+
+
+# TASK 2 — Create a new column 'fare_category'
+#           'low' if fare < 50, 'mid' if 50-100, 'high' if over 100
+df['fare_category'] = df['fare'].apply(lambda x: 'low' if x < 50 else 'mid' if x < 100 else 'high')
+
+# TASK 3 — What was the survival rate for each age_group? (groupby from earlier)
+print(df.groupby('age_group').agg({
+    'survived': 'mean'
+}))
+
+
+
+
