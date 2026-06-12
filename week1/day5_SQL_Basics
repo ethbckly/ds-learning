@@ -1,0 +1,12 @@
+import pandas as pd
+import sqlite3
+import seaborn as sns
+
+df = sns.load_dataset('titanic')
+conn = sqlite3.connect(':memory:')
+df.to_sql('titanic', conn, index=False, if_exists='replace')
+
+print(pd.read_sql("SELECT * FROM titanic LIMIT 5", conn))
+
+# TASK 1 - Select only the name, age and fare columns for all passengers
+print(pd.read_sql("SELECT who, age, fare FROM titanic", conn))
