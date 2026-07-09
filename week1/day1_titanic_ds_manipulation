@@ -20,5 +20,10 @@ print(df.groupby('sex').agg({
 
 # TASK 3 - Fill missing ages with the median age
 median_age = df['age'].median()
-df['age'].fillna(median_age)
-print(df['age'])
+df['age'] = df['age'].fillna(median_age)
+
+# TASK 4 - Drop the deck column due to way to many nulls
+df = df.drop('deck', axis=1)
+
+# TASK 5 - Create a new column 'fare_per_class' - fare divided by pclass
+df['fare_per_class'] = df['fare'] / df['pclass']
